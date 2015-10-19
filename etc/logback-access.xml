@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="CYCLIC" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>logs/access.log</File>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <FileNamePattern>
+                logs/access.%i-%d{yyyy-MM-dd_HH-mm}.log.zip
+            </FileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>5</maxIndex>
+        </rollingPolicy>
+
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+
+        <encoder>
+            <pattern>combined</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Uncomment this, if you want see HTTP/1.1 access feed in system console -->
+    <!--<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%fullRequest%n%n%fullResponse</pattern>
+        </encoder>
+    </appender>-->
+
+    <appender-ref ref="CYCLIC" />
+    <appender-ref ref="STDOUT" />
+</configuration>

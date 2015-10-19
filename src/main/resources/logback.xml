@@ -3,42 +3,54 @@
 
 	<appender name="CYCLIC" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<File>logs/requestIntercepting.log</File>
-		<rollingPolicy
-				class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
 			<FileNamePattern>
-				requestIntercepting.%d{yyyy-MM-dd_HH-mm}.log.zip
+				logs/requestIntercepting.%i-%d{yyyy-MM-dd_HH-mm}.log.zip
 			</FileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>5</maxIndex>
 		</rollingPolicy>
 
-		<layout class="ch.qos.logback.classic.PatternLayout">
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>10MB</maxFileSize>
+		</triggeringPolicy>
 
-			<Pattern>
-				%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
-			</Pattern>
-
-		</layout>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] - %msg%n</pattern>
+		</encoder>
 	</appender>
 
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-		<layout class="ch.qos.logback.classic.PatternLayout">
-
-			<Pattern>
+		<encoder>
+			<pattern>
 				%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
-			</Pattern>
+			</pattern>
+		</encoder>
+	</appender>
 
-		</layout>
+	<appender name="STDOUT-web-initializer" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>
+				%msg%n
+			</pattern>
+		</encoder>
 	</appender>
 
 	<logger name="org.springframework" level="debug" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
 	
-	<logger name="org.hightrax.app" level="debug" additivity="false">
+	<logger name="org.hightrax.app" level="debug">
 		<appender-ref ref="STDOUT" />
 	</logger>
 
-	<logger name="org.hightrax.app.config.SpringWebConfig" level="debug">
+	<logger name="org.hightrax.app.config.SpringWebConfig" level="debug" additivity="false">
 		<appender-ref ref="CYCLIC" />
+	</logger>
+
+	<logger name="org.hightrax.app.servlet3.MyWebInitializer" level="debug" additivity="false">
+		<appender-ref ref="STDOUT-web-initializer" />
 	</logger>
 	
 	<root level="error">
