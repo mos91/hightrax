@@ -72,10 +72,10 @@
 
 <spring:url value="/resources/js/hello.js" var="coreJs" />
 <spring:url value="/resources/js/bootstrap.min.js" var="bootstrapJs" />
+<spring:url value="/resources/js/jquery-1.11.1.min.js" var="jqueryJs" />
 
 <script src="${coreJs}"></script>
 <script src="${bootstrapJs}"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-
+<script src="${jqueryJs}"></script>
 </body>
 </html>
