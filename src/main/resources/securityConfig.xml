@@ -10,7 +10,6 @@
 
     <context:property-placeholder location="classpath:application.properties"/>
 
-    <http pattern="/logout*" security="none"/>
     <http pattern="/resources/**" security="none"/>
 
     <http>
@@ -19,7 +18,7 @@
         <intercept-url pattern="/**" access="hasRole('USER')" />
 
         <form-login login-page='/login.jsp'/>
-        <logout delete-cookies="JSESSIONID"/>
+        <logout logout-url="/logout" delete-cookies="JSESSIONID"/>
     </http>
 
     <authentication-manager>

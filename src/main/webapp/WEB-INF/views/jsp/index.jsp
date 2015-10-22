@@ -1,4 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,18 +12,21 @@
   <link href="${coreCss}" rel="stylesheet" />
 </head>
 
-<spring:url var="logoutUrl" value="logout"/>
+<spring:url var="logoutUrl" value="/logout"/>
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">Project Name</a>
     </div>
+
     <div class="navbar-header navbar-right">
-      <%--<a class="navbar-brand" href="logout.jsp">Logout</a>--%>
         <form action="${logoutUrl}" method="POST">
-          <input class="navbar-brand" type="submit" value="Logout" />
+          <button type="submit" class="btn btn-default navbar-btn">Logout</button>
           <sec:csrfInput />
         </form>
+    </div>
+    <div class="navbar-header navbar-right">
+      <p class="navbar-text">Signed in as ${pageContext.request.userPrincipal.name}</p>
     </div>
   </div>
 </nav>
