@@ -11,10 +11,18 @@
   <link href="${coreCss}" rel="stylesheet" />
 </head>
 
+<spring:url var="logoutUrl" value="logout"/>
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">Project Name</a>
+    </div>
+    <div class="navbar-header navbar-right">
+      <%--<a class="navbar-brand" href="logout.jsp">Logout</a>--%>
+        <form action="${logoutUrl}" method="POST">
+          <input class="navbar-brand" type="submit" value="Logout" />
+          <sec:csrfInput />
+        </form>
     </div>
   </div>
 </nav>
@@ -71,11 +79,12 @@
 </div>
 
 <spring:url value="/resources/js/hello.js" var="coreJs" />
-<spring:url value="/resources/js/bootstrap.min.js" var="bootstrapJs" />
 <spring:url value="/resources/js/jquery-1.11.1.min.js" var="jqueryJs" />
+<spring:url value="/resources/js/bootstrap.min.js" var="bootstrapJs" />
 
 <script src="${coreJs}"></script>
-<script src="${bootstrapJs}"></script>
 <script src="${jqueryJs}"></script>
+<script src="${bootstrapJs}"></script>
+
 </body>
 </html>

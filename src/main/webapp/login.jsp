@@ -1,4 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -6,7 +7,8 @@
     <meta charset="utf-8">
     <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
     <title>Login</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <spring:url value="/login" var="loginUrl"/>
     <spring:url value="/resources/css/bootstrap.min.css" var="bootstrapCss" />
     <link href="${bootstrapCss}" rel="stylesheet">
     <style type="text/css">
@@ -59,20 +61,21 @@
 			    	<h3 class="panel-title">Login via site</h3>
 			 	</div>
 			  	<div class="panel-body">
-			    	<form accept-charset="UTF-8" role="form">
+			    	<form action="${loginUrl}" accept-charset="UTF-8" role="form" method="POST">
                     <fieldset>
 			    	  	<div class="form-group">
-			    		    <input class="form-control" placeholder="yourmail@example.com" name="email" type="text">
+			    		    <input class="form-control" placeholder="yourmail@example.com" name="username" type="text">
 			    		</div>
 			    		<div class="form-group">
 			    			<input class="form-control" placeholder="Password" name="password" type="password" value="">
 			    		</div>
 			    		<div class="checkbox">
 			    	    	<label>
-			    	    		<input name="remember" type="checkbox" value="Remember Me"> Remember Me
+			    	    		<input name="remember-me" type="checkbox" value="Remember Me"> Remember Me
 			    	    	</label>
 			    	    </div>
 			    		<input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
+                        <sec:csrfInput />
 			    	</fieldset>
 			      	</form>
                       <hr/>

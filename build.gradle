@@ -24,7 +24,8 @@ gretty {
     servletContainer = 'jetty9'
     serverConfigFile = 'jetty.xml'
     debugPort = 5005      // default
-    debugSuspend = true   // default
+    debugSuspend = false   // default
+    fastReload = true
 }
 
 repositories {
@@ -40,6 +41,8 @@ dependencies {
     compile 'org.springframework:spring-webmvc:4.1.6.RELEASE'
     compile 'org.springframework.security:spring-security-web:4.0.2.RELEASE'
     compile 'org.springframework.security:spring-security-config:4.0.2.RELEASE'
+    compile 'org.springframework.security:spring-security-taglibs:4.0.2.RELEASE'
+
     compile 'javax.servlet:jstl:1.2'
 
     //include in compile only, exclude in the war

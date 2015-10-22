@@ -7,9 +7,9 @@ import org.hightrax.app.config.SpringWebConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -59,6 +59,14 @@ public class MyWebInitializer extends
     registration.setAsyncSupported(isAsyncSupported());
 
     logger.info("Register " + TeeFilter.class + " filter");
+  }
+
+  private void registerSecurityFilterChain(ServletContext servletContext) {
+    FilterRegistration.Dynamic registration =
+      servletContext.addFilter("springSecurityFilterChain", new DelegatingFilterProxy());
+    registration.addMappingForUrlPatterns(null, false, "/*");
+
+    logger.info("Register springSecurityFilterChain");
   }
 
   @Override

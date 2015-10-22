@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/security"
-       xmlns:beans="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:context="http://www.springframework.org/schema/context"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		http://www.springframework.org/schema/security
-		http://www.springframework.org/schema/security/spring-security.xsd">
+		http://www.springframework.org/schema/security/spring-security.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <context:property-placeholder location="classpath:application.properties"/>
+
+    <http pattern="/logout*" security="none"/>
     <http pattern="/resources/**" security="none"/>
 
     <http>
+        <remember-me key="${security.private_key}"/>
         <intercept-url pattern="/login.jsp*" access="isAnonymous()"/>
         <intercept-url pattern="/**" access="hasRole('USER')" />
 
         <form-login login-page='/login.jsp'/>
-        <logout />
+        <logout delete-cookies="JSESSIONID"/>
     </http>
 
     <authentication-manager>
         <authentication-provider>
             <user-service>
-                <user name="mrgod" password="hisblessinggod" authorities="ROLE_USER, ROLE_ADMIN" />
-                <user name="john" password="qwerty123" authorities="ROLE_USER" />
+                <user name="admin" password="admin" authorities="ROLE_USER, ROLE_ADMIN" />
+                <user name="user" password="123" authorities="ROLE_USER" />
             </user-service>
         </authentication-provider>
     </authentication-manager>

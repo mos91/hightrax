@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@RequestMapping(method = RequestMethod.GET)
 public class WelcomeController {
 
 	private final Logger logger = LoggerFactory.getLogger(WelcomeController.class);
@@ -23,7 +24,7 @@ public class WelcomeController {
 		this.helloWorldService = helloWorldService;
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/")
 	public String index(Map<String, Object> model) {
 
 		logger.debug("index() is executed!");
@@ -34,7 +35,7 @@ public class WelcomeController {
 		return "index";
 	}
 
-	@RequestMapping(value = "/hello/{name:.+}", method = RequestMethod.GET)
+	@RequestMapping(value = "/hello/{name:.+}")
 	public ModelAndView hello(@PathVariable("name") String name) {
 
 		logger.debug("hello() is executed - $name {}", name);
