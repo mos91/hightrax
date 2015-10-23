@@ -4,6 +4,8 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+       <context:component-scan base-package="org.hightrax.app.security"/>
+
        <bean id="properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
               <property name="locations">
                      <list>
@@ -22,4 +24,9 @@
        </bean>
 
        <bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+
+       <bean id="securitySessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+           <property name="dataSource" ref="securityDatasource"/>
+       </bean>
+
 </beans>
