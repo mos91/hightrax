@@ -19,11 +19,12 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @ComponentScan({ "org.hightrax.app.web", "org.hightrax.app.interceptors" })
 @ImportResource("/WEB-INF/dispatcher-servlet.xml")
-public class SpringWebConfig extends WebMvcConfigurerAdapter implements InitializingBean {
+public class SpringWebConfig extends WebMvcConfigurerAdapter {
 
 	@Autowired
 	private ApplicationContext context;
 
+	@Autowired(required = false)
 	private LoggingInterceptor loggingInterceptor;
 
 	@Override
@@ -47,11 +48,4 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter implements Initiali
 		return viewResolver;
 	}
 
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		String[] interceptorNames = context.getBeanNamesForType(LoggingInterceptor.class);
-		if (interceptorNames.length > 0){
-			loggingInterceptor = context.getBean(LoggingInterceptor.class);
-		}
-	}
 }
