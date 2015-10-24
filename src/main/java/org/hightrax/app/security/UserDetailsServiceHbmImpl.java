@@ -4,6 +4,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.transform.BasicTransformerAdapter;
 import org.hibernate.transform.ResultTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +55,7 @@ public class UserDetailsServiceHbmImpl extends HibernateDaoSupport implements Us
         }
       });
     } catch (DataAccessException e) {
-      logger.error("Some error occured while quering user with username" + username, e);
+      logger.error("Some error occured while querying user with username" + username, e);
     }
 
     if (result == null) {
@@ -64,7 +65,7 @@ public class UserDetailsServiceHbmImpl extends HibernateDaoSupport implements Us
     return result;
   }
 
-  private static class UserResultTransformer implements ResultTransformer {
+  private static class UserResultTransformer extends BasicTransformerAdapter {
 
     private Collection<GrantedAuthority> getGrantedAuthorities(Object value){
       String[] roles = ((String) value).split(",");
@@ -88,9 +89,5 @@ public class UserDetailsServiceHbmImpl extends HibernateDaoSupport implements Us
       return result;
     }
 
-    @Override
-    public List transformList(List collection) {
-      return collection;
-    }
   }
 }

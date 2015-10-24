@@ -14,7 +14,8 @@
 
     <http>
         <remember-me token-validity-seconds="${rememberme.token.validity.seconds}"
-                     user-service-ref="appUserDetailsService"/>
+                     user-service-ref="appUserDetailsService"
+                     token-repository-ref="appTokenRepository"/>
         <intercept-url pattern="/login.jsp*" access="isAnonymous()"/>
         <intercept-url pattern="/**" access="hasRole('USER')" />
 
