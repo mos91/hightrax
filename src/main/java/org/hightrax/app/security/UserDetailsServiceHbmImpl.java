@@ -25,17 +25,16 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-@Service
-public class AppUserDetailsService extends HibernateDaoSupport implements UserDetailsService, InitializingBean {
+@Service("appUserDetailsService")
+public class UserDetailsServiceHbmImpl extends HibernateDaoSupport implements UserDetailsService, InitializingBean {
 
-  private static final Logger logger = LoggerFactory.getLogger(AppUserDetailsService.class);
+  private static final Logger logger = LoggerFactory.getLogger(UserDetailsServiceHbmImpl.class);
 
   private static final int USER_COLUMNS_COUNT = 4;
 
-  private SessionFactory sessionFactory;
-
   @Autowired
-  public AppUserDetailsService(@Qualifier("securitySessionFactory") SessionFactory sessionFactory){
+  public UserDetailsServiceHbmImpl(
+    @Qualifier("securitySessionFactory") SessionFactory sessionFactory){
     setSessionFactory(sessionFactory);
   }
 
