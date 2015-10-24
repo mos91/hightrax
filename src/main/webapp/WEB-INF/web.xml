@@ -9,6 +9,15 @@
     <description>Rename it to web.xml for appropriate lookup
         of this configuration from servlet container</description>
 
+    <!--
+        You can comment this
+        if you desire to not use spring framework custom logging configuration.
+    -->
+    <context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>classpath:log4j.xml</param-value>
+    </context-param>
+
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>

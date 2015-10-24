@@ -36,9 +36,14 @@ repositories {
 dependencies {
     gretty 'ch.qos.logback:logback-access:1.1.3'
 
+    // logging
+    compile 'org.slf4j:slf4j-api:1.7.12'
     compile 'ch.qos.logback:logback-classic:1.1.3'
     compile 'ch.qos.logback:logback-access:1.1.3'
+    compile 'log4j:log4j:1.2.17'
+    compile 'org.slf4j:slf4j-log4j12:1.7.12'
 
+    // spring
     compile 'org.springframework:spring-webmvc:4.1.6.RELEASE'
     compile 'org.springframework:spring-orm:4.1.6.RELEASE'
     compile 'org.springframework.security:spring-security-web:4.0.2.RELEASE'

@@ -6,26 +6,27 @@
              xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		http://www.springframework.org/schema/security
-		http://www.springframework.org/schema/security/spring-security.xsd
-		http://www.springframework.org/schema/context
-		http://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/security/spring-security.xsd">
 
     <beans:import resource="securityBeans.xml"/>
 
     <http pattern="/resources/**" security="none"/>
 
     <http>
-        <remember-me key="${security.private_key}"/>
+        <remember-me token-validity-seconds="${rememberme.token.validity.seconds}"
+                     user-service-ref="appUserDetailsService"/>
         <intercept-url pattern="/login.jsp*" access="isAnonymous()"/>
         <intercept-url pattern="/**" access="hasRole('USER')" />
 
         <form-login login-page='/login.jsp'/>
         <logout logout-url="/logout" delete-cookies="JSESSIONID"/>
+        <session-management invalid-session-url="/login.jsp"/>
     </http>
 
-    <authentication-manager>
+    <authentication-manager alias="authenticationManager">
         <authentication-provider user-service-ref="appUserDetailsService">
             <password-encoder ref="bcryptEncoder"/>
         </authentication-provider>
     </authentication-manager>
+
 </beans:beans>

@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ImportResource;
 
 @Configuration
 @ComponentScan({ "org.hightrax.app.service" })
-@ImportResource({
-  "classpath:applicationContext.xml"})
-public class SpringRootConfig {
+@ImportResource({ "classpath:applicationContext.xml"})
+public class SpringRootConfig  {
+
 }

@@ -71,7 +71,7 @@
 			    		</div>
 			    		<div class="checkbox">
 			    	    	<label>
-			    	    		<input name="remember-me" type="checkbox" value="Remember Me"> Remember Me
+			    	    		<input name="remember-me" type="checkbox"/> Remember Me
 			    	    	</label>
 			    	    </div>
 			    		<input class="btn btn-lg btn-success btn-block" type="submit" value="Login">

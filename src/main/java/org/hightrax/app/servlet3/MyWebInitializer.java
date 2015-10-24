@@ -2,6 +2,7 @@ package org.hightrax.app.servlet3;
 
 import ch.qos.logback.access.servlet.TeeFilter;
 import ch.qos.logback.classic.ViewStatusMessagesServlet;
+import org.hightrax.app.config.LoggedSpringRootConfig;
 import org.hightrax.app.config.SpringRootConfig;
 import org.hightrax.app.config.SpringWebConfig;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+import org.springframework.web.util.Log4jConfigListener;
 
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
@@ -58,7 +60,7 @@ public class MyWebInitializer extends
     registration.addMappingForUrlPatterns(null, false, getServletName());
     registration.setAsyncSupported(isAsyncSupported());
 
-    logger.info("Register " + TeeFilter.class + " filter");
+    logger.info("Register Logback TeeFilter ");
   }
 
   private void registerSecurityFilterChain(ServletContext servletContext) {
@@ -69,8 +71,18 @@ public class MyWebInitializer extends
     logger.info("Register springSecurityFilterChain");
   }
 
+  private void registerSpringLog4jListener(ServletContext servletContext) {
+    servletContext.addListener(new Log4jConfigListener());
+
+    logger.info("Register " + Log4jConfigListener.class);
+  }
+
   @Override
   public void onStartup(ServletContext servletContext) throws ServletException {
+    if (isDevelopment){
+      registerSpringLog4jListener(servletContext);
+    }
+
     super.onStartup(servletContext);
     logger.info("--------------------------<Application Settings>--------------------------");
     logger.info(ApplicationProperties.APPLICATION_MODE + " : " + applicationMode);
@@ -87,7 +99,7 @@ public class MyWebInitializer extends
       System.setProperty(SPRING_ACTIVE_PROFILES, beanProfile);
     }
 
-    if (isDevelopment){
+    if (isDevelopment) {
       registerLoggingServlet(servletContext);
       registerTeeFilter(servletContext);
     }
@@ -97,7 +109,14 @@ public class MyWebInitializer extends
 
   @Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class[] { SpringRootConfig.class };
+    Class<?> rootContextClass;
+    if (isDevelopment){
+      rootContextClass = LoggedSpringRootConfig.class;
+    } else {
+      rootContextClass = SpringRootConfig.class;
+    }
+
+		return new Class[] { rootContextClass };
 	}
 
 	@Override

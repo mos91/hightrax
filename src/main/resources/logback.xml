@@ -17,8 +17,16 @@
 		</triggeringPolicy>
 
 		<encoder>
-			<pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] - %msg%n</pattern>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss} - %msg%n</pattern>
 		</encoder>
+	</appender>
+
+	<appender name="FILE-spring-beans" class="ch.qos.logback.core.FileAppender">
+		<append>false</append>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss} %msg%n</pattern>
+		</encoder>
+		<file>logs/spring/beans.log</file>
 	</appender>
 
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
@@ -36,10 +44,6 @@
 			</pattern>
 		</encoder>
 	</appender>
-
-	<logger name="org.springframework" level="debug" additivity="false">
-		<appender-ref ref="STDOUT" />
-	</logger>
 	
 	<logger name="org.hightrax.app" level="debug">
 		<appender-ref ref="STDOUT" />
@@ -51,6 +55,10 @@
 
 	<logger name="org.hightrax.app.servlet3.MyWebInitializer" level="debug" additivity="false">
 		<appender-ref ref="STDOUT-web-initializer" />
+	</logger>
+
+	<logger name="org.hightrax.app.config.LoggedSpringRootConfig" level="debug" additivity="false">
+		<appender-ref ref="FILE-spring-beans"/>
 	</logger>
 	
 	<root level="error">
