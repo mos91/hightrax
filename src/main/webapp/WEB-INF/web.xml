@@ -6,6 +6,10 @@
         metadata-complete="false"
         version="3.1">
 
+    <icon>
+        <small-icon>/WEB-INF/favicon.ico</small-icon>
+    </icon>
+
     <description>Rename it to web.xml for appropriate lookup
         of this configuration from servlet container</description>
 

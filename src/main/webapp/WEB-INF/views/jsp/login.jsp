@@ -51,6 +51,10 @@
     .btn-facebook.active {
         background-color: #0d2456 \9 !important;
     }
+
+    .container {
+        margin-top : 150px;
+    }
     </style>
 </head>
 <body>
@@ -60,6 +64,9 @@
     		<div class="panel panel-default">
 			  	<div class="panel-heading">
 			    	<h3 class="panel-title">Login via site</h3>
+                    <c:if test="${not empty badCredentials}">
+                        <span class="label label-danger">Bad credentials!</span>
+                    </c:if>
 			 	</div>
 			  	<div class="panel-body">
 			    	<form:form action="${loginUrl}" accept-charset="UTF-8" role="form" method="POST">

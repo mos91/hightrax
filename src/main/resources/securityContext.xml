@@ -16,13 +16,13 @@
         <remember-me token-validity-seconds="${rememberme.token.validity.seconds}"
                      user-service-ref="appUserDetailsService"
                      token-repository-ref="appTokenRepository"/>
-        <intercept-url pattern="/login.jsp*" access="isAnonymous()"/>
+        <intercept-url pattern="/login" access="isAnonymous()"/>
         <intercept-url pattern="/**" access="hasRole('USER')" />
 
-        <form-login login-page='/login.jsp'/>
+        <form-login login-page='/login'/>
         <logout logout-url="/logout" delete-cookies="JSESSIONID"/>
 
-        <session-management invalid-session-url="/login.jsp">
+        <session-management invalid-session-url="/login">
             <concurrency-control max-sessions="1" error-if-maximum-exceeded="true"/>
         </session-management>
     </http>
