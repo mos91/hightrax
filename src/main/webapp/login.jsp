@@ -1,5 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,7 +62,7 @@
 			    	<h3 class="panel-title">Login via site</h3>
 			 	</div>
 			  	<div class="panel-body">
-			    	<form action="${loginUrl}" accept-charset="UTF-8" role="form" method="POST">
+			    	<form:form action="${loginUrl}" accept-charset="UTF-8" role="form" method="POST">
                     <fieldset>
 			    	  	<div class="form-group">
 			    		    <input class="form-control" placeholder="yourmail@example.com" name="username" type="text">
@@ -75,9 +76,8 @@
 			    	    	</label>
 			    	    </div>
 			    		<input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
-                        <sec:csrfInput />
 			    	</fieldset>
-			      	</form>
+			      	</form:form>
                       <hr/>
                     <center><h4>OR</h4></center>
                     <input class="btn btn-lg btn-facebook btn-block" type="submit" value="Login via facebook">

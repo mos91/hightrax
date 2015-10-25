@@ -1,4 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -20,10 +21,9 @@
     </div>
 
     <div class="navbar-header navbar-right">
-        <form action="${logoutUrl}" method="POST">
+        <form:form action="${logoutUrl}" method="POST">
           <button type="submit" class="btn btn-default navbar-btn">Logout</button>
-          <sec:csrfInput />
-        </form>
+        </form:form>
     </div>
     <div class="navbar-header navbar-right">
       <p class="navbar-text">Signed in as ${pageContext.request.userPrincipal.name}</p>
