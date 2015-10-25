@@ -8,6 +8,7 @@ import org.hightrax.app.config.SpringWebConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 import org.springframework.web.util.Log4jConfigListener;
@@ -36,7 +37,7 @@ public class MyWebInitializer extends
 
   private final String loggingServletUrl;
 
-  public MyWebInitializer() throws IOException {
+  public MyWebInitializer() throws Exception {
     super();
     properties = new Properties();
     properties.load(new ClassPathResource("application.properties").getInputStream());
@@ -44,6 +45,20 @@ public class MyWebInitializer extends
       properties.getProperty(ApplicationProperties.APPLICATION_MODE));
     loggingServletUrl = properties.getProperty(ApplicationProperties.LOGGING_SERVLET_URL);
     isDevelopment = (applicationMode == ApplicationMode.DEVELOPMENT)? true : false;
+  }
+
+  @Deprecated
+  private boolean resolveSessionLimit() {
+    boolean result = false;
+    if (properties.containsKey(ApplicationProperties.MAX_SESSIONS_COUNT)){
+      int maxConnectedSessions = Integer.parseInt((String) properties.get(ApplicationProperties.MAX_SESSIONS_COUNT));
+
+      if (maxConnectedSessions > 0){
+        result = true;
+      }
+    }
+
+    return result;
   }
 
   private void registerLoggingServlet(ServletContext servletContext){
@@ -63,6 +78,7 @@ public class MyWebInitializer extends
     logger.info("Register Logback TeeFilter ");
   }
 
+  @Deprecated
   private void registerSecurityFilterChain(ServletContext servletContext) {
     FilterRegistration.Dynamic registration =
       servletContext.addFilter("springSecurityFilterChain", new DelegatingFilterProxy());
@@ -75,6 +91,13 @@ public class MyWebInitializer extends
     servletContext.addListener(new Log4jConfigListener());
 
     logger.info("Register " + Log4jConfigListener.class);
+  }
+
+  @Deprecated
+  private void registerSessionLimitListener(ServletContext servletContext) {
+    servletContext.addListener(new HttpSessionEventPublisher());
+
+    logger.info("Register session limit listener of " + HttpSessionEventPublisher.class);
   }
 
   @Override

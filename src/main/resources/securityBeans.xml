@@ -12,6 +12,7 @@
                      <list>
                             <value>classpath:application.properties</value>
                             <value>classpath:jdbc.properties</value>
+                            <value>classpath:hibernate.properties</value>
                      </list>
               </property>
         </bean>
@@ -27,7 +28,16 @@
         <bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 
         <bean id="securitySessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-           <property name="dataSource" ref="securityDatasource"/>
+            <property name="dataSource" ref="securityDatasource"/>
+            <property name="hibernateProperties">
+                <props>
+                    <prop key="hibernate.c3p0.min_size">${hibernate.c3p0.min_size}</prop>
+                    <prop key="hibernate.c3p0.max_size">${hibernate.c3p0.max_size}</prop>
+                    <prop key="hibernate.c3p0.timeout">${hibernate.c3p0.timeout}</prop>
+                    <prop key="hibernate.c3p0.max_statements">${hibernate.c3p0.max_statements}</prop>
+                    <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                </props>
+            </property>
         </bean>
 
 </beans>

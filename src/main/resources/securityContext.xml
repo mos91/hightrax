@@ -21,7 +21,10 @@
 
         <form-login login-page='/login.jsp'/>
         <logout logout-url="/logout" delete-cookies="JSESSIONID"/>
-        <session-management invalid-session-url="/login.jsp"/>
+
+        <session-management invalid-session-url="/login.jsp">
+            <concurrency-control max-sessions="1" error-if-maximum-exceeded="true"/>
+        </session-management>
     </http>
 
     <authentication-manager alias="authenticationManager">

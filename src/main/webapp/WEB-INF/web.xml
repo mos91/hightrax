@@ -9,6 +9,13 @@
     <description>Rename it to web.xml for appropriate lookup
         of this configuration from servlet container</description>
 
+    <!-- Multiple session access prevent measure -->
+    <listener>
+        <listener-class>
+            org.springframework.security.web.session.HttpSessionEventPublisher
+        </listener-class>
+    </listener>
+
     <!--
         You can comment this
         if you desire to not use spring framework custom logging configuration.
