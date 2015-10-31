@@ -20,7 +20,8 @@
     <http pattern="/resources/**" security="none"/>
 
     <http>
-        <remember-me token-validity-seconds="${rememberme.token.validity.seconds}"
+        <remember-me key="${spring.security.private_key}"
+                     token-validity-seconds="${spring.security.rememberme.token.validity.seconds}"
                      user-service-ref="appUserDetailsService"
                      token-repository-ref="appTokenRepository"/>
         <intercept-url pattern="/login" access="isAnonymous()"/>
