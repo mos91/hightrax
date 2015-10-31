@@ -8,6 +8,7 @@ apply plugin: 'org.akhikhl.gretty'
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
     }
 
     dependencies {
@@ -15,8 +16,8 @@ buildscript {
     }
 }
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 gretty {
     port = 8080
@@ -31,6 +32,9 @@ gretty {
 repositories {
     mavenLocal()
     mavenCentral()
+    maven {
+        url 'http://repo.springsource.org/release'
+    }
 }
 
 dependencies {
@@ -49,6 +53,7 @@ dependencies {
     compile 'org.springframework.security:spring-security-web:4.0.2.RELEASE'
     compile 'org.springframework.security:spring-security-config:4.0.2.RELEASE'
     compile 'org.springframework.security:spring-security-taglibs:4.0.2.RELEASE'
+    compile 'org.springframework.data:spring-data-jpa:1.9.0.RELEASE'
 
     compile 'org.hibernate:hibernate-core:4.2.19.Final'
     compile 'org.hibernate:hibernate-c3p0:4.2.19.Final'

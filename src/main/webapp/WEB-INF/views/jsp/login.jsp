@@ -64,9 +64,14 @@
     		<div class="panel panel-default">
 			  	<div class="panel-heading">
 			    	<h3 class="panel-title">Login via site</h3>
-                    <c:if test="${not empty badCredentials}">
-                        <span class="label label-danger">Bad credentials!</span>
-                    </c:if>
+                    <c:choose>
+                        <c:when test="${not empty badCredentials}">
+                            <span class="label label-danger">Bad credentials!</span>
+                        </c:when>
+                        <c:when test="${not empty expired}">
+                            <span class="label label-danger">Expired session!</span>
+                        </c:when>
+                    </c:choose>
 			 	</div>
 			  	<div class="panel-body">
 			    	<form:form action="${loginUrl}" accept-charset="UTF-8" role="form" method="POST">

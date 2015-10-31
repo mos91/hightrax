@@ -20,10 +20,26 @@
         </layout>
     </appender>
 
+    <!--<appender name="CYCLIC-hibernate" class="org.apache.log4j.RollingFileAppender">
+        <param name="append" value="true" />
+        <param name="maxFileSize" value="10MB" />
+        <param name="maxBackupIndex" value="10" />
+        <param name="file" value="logs/hibernate/hbm.log" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="%d{yyyy-MM-dd HH:mm:ss} %m%n" />
+        </layout>
+    </appender>-->
+
     <logger name="org.springframework.security.web.authentication"  additivity="false">
         <level value="debug"/>
         <appender-ref ref="CYCLIC-auth"/>
     </logger>
+
+    <!--<logger name="org.hibernate" additivity="false">
+        <level value="debug"/>
+        <appender-ref ref="CYCLIC-hibernate"/>
+    </logger>-->
 
     <logger name="org.springframework" additivity="false">
         <level value="info"/>
